@@ -151,6 +151,19 @@ class ChessApp:
             self.selected_square = None
 
     def analyse_position(self):
+        if self.board.is_checkmate():
+            print("♟️ 체크메이트! 게임이 종료되었습니다.")
+            messagebox.showinfo("게임 종료", "체크메이트! 게임이 끝났습니다.")
+            return
+        elif self.board.is_stalemate():
+            print("🔒 스테일메이트! 무승부입니다.")
+            messagebox.showinfo("게임 종료", "스테일메이트! 무승부입니다.")
+            return
+        elif self.board.is_insufficient_material():
+            print("📭 말이 부족해 무승부입니다.")
+            messagebox.showinfo("게임 종료", "말 부족으로 무승부입니다.")
+            return
+
         if len(self.board.move_stack) >= 1:
             last_move = self.board.peek()
 
