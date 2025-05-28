@@ -135,6 +135,15 @@ class ChessApp:
                 self.selected_square = square
         else:
             move = chess.Move(self.selected_square, square)
+            if (
+                    self.board.piece_at(self.selected_square)
+                    and self.board.piece_at(self.selected_square).piece_type == chess.PAWN
+                    and (
+                    (self.player_color == chess.WHITE and chess.square_rank(square) == 7) or
+                    (self.player_color == chess.BLACK and chess.square_rank(square) == 0) )
+            ):
+                move = chess.Move(self.selected_square, square, promotion=chess.QUEEN)
+
             if move in self.board.legal_moves:
                 self.board.push(move)
                 self.draw_board()
