@@ -176,6 +176,9 @@ class ChessApp:
 
             score_before = info_before["score"].pov(self.player_color).score()
             score_after = info_after["score"].pov(self.player_color).score()
+            
+            if info_after["score"].is_mate():
+                print("체크메이트가 가능합니다.")
 
             if score_before is not None and score_after is not None:
                 delta = score_after - score_before
