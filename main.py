@@ -7,7 +7,7 @@ import os
 from openai import OpenAI
 
 api_key = os.getenv("OPENAI_API_KEY")
-print(api_key)
+
 openai = OpenAI(api_key=api_key)
 
 BOARD_SIZE = 8
@@ -79,6 +79,7 @@ class ChessApp:
 
         self.canvas.bind("<Button-1>", self.on_click)
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
+
 
     def load_images(self):
         for symbol, filename in piece_image_map.items():
@@ -176,13 +177,12 @@ class ChessApp:
 
             score_before = info_before["score"].pov(self.player_color).score()
             score_after = info_after["score"].pov(self.player_color).score()
-            
+
             if info_after["score"].is_mate():
                 print("체크메이트가 가능합니다.")
 
             if score_before is not None and score_after is not None:
                 delta = score_after - score_before
-                print(f"📊 내 기준 평가 변화: {score_before} → {score_after} (Δ {delta})")
                 if delta < -200:
                     print("🚨 블런더입니다! 내 입장에서 큰 손해입니다.")
         else:
